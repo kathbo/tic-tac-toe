@@ -1,53 +1,61 @@
-let activePlayer = 'player1'
-
 const Board = (() => {
     let boardArr = ["", "", "", "", "", "", "", "", ""];
-    const returnBoardArr = () => {return boardArr}
+    const assignToArr = (i, sign) => {
+        boardArr[i] = sign
+    };
     return {
-        returnBoardArr
+        assignToArr
     }
 })()
 
+const Players = (sign) => {
+    this.isActive = false;
+    return {sign, isActive}
+}
+
+let player1 = Players('x');
+let player2 = Players('o');
+
+
 const GameFlow = (() => {
-    let boardDiv = document.querySelectorAll('div.boardPiece');
-    boardDiv.forEach(div => {
+    let activeSign;
+    let boardDivs = document.querySelectorAll('div.boardPiece');
+    boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
-            assignToArr(e.target.getAttribute('data-index'))
-            placeChar(e.target)
+            switchPlayers();
+            Board.assignToArr(e.target.getAttribute('data-index'), activeSign)
+            placeChar(e.target);
         })
     })
 
-    const assignToArr = (i) => {
-        Board.returnBoardArr()[i] = 'x'
-        console.log(Board.returnBoardArr())
-        
+    const assignToArr = (i) => { // board
+        Board.returnBoardArr()[i] = activeSign
+        //console.log(Board.returnBoardArr())
     }
+
     const placeChar = (el) => {
-        el.textContent = 'x'
+        el.textContent = activeSign
     }
     const switchPlayers = () => {
-        if (activePlayer === 'player1') {
+        if (player1.isActive) {
+            player1.isActive = false;
             document.getElementById('player1Btn').classList.remove('activeButton');
             document.getElementById('player2Btn').classList.add('activeButton');
-            activePlayer = 'player2';
+            player2.isActive = true;
+            getSign(player2);
         } else {
+            player2.isActive = false;
             document.getElementById('player2Btn').classList.remove('activeButton');
             document.getElementById('player1Btn').classList.add('activeButton');
-            activePlayer = 'player1';
+            player1.isActive = true;
+            getSign(player1);
         }
-        
+    }
+    const getSign = (player) => {
+        activeSign = player.sign
     }
     return {
         switchPlayers
     }
 })()
-
-
-let btns = document.querySelectorAll('button.playerBtn');
-
-btns.forEach(button => {
-    button.addEventListener('click', () => {
-        GameFlow.switchPlayers();
-    })
-}) 
 
