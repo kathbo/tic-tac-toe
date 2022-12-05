@@ -1,7 +1,11 @@
 const Board = (() => {
     let boardArr = ["", "", "", "", "", "", "", "", ""];
-    const assignToArr = (i, sign) => {
-        boardArr[i] = sign
+    const assignToArr = (i, sign, el) => {
+        if (boardArr[i] === "") {
+            boardArr[i] = sign;
+            GameFlow.placeChar(el);
+        }
+        
     };
     return {
         assignToArr
@@ -22,19 +26,13 @@ const GameFlow = (() => {
     let boardDivs = document.querySelectorAll('div.boardPiece');
     boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
-            switchPlayers();
-            Board.assignToArr(e.target.getAttribute('data-index'), activeSign)
-            placeChar(e.target);
+            Board.assignToArr(e.target.getAttribute('data-index'), activeSign, e.target);
         })
     })
 
-    const assignToArr = (i) => { // board
-        Board.returnBoardArr()[i] = activeSign
-        //console.log(Board.returnBoardArr())
-    }
-
     const placeChar = (el) => {
-        el.textContent = activeSign
+        switchPlayers();
+        el.textContent = activeSign;
     }
     const switchPlayers = () => {
         if (player1.isActive) {
@@ -55,7 +53,8 @@ const GameFlow = (() => {
         activeSign = player.sign
     }
     return {
-        switchPlayers
+        switchPlayers,
+        placeChar
     }
 })()
 
