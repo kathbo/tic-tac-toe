@@ -4,25 +4,27 @@ const Board = (() => {
         if (boardArr[i] === "") {
             boardArr[i] = sign;
             GameFlow.placeChar(el);
+            PickAWinner.seeIfPlayerWon(boardArr, i, boardArr[i])
         }
     };
     return {
-        assignToArr
+        assignToArr,
+        boardArr //
     }
 })()
 
-const Players = (sign) => {
+const Players = (name, sign) => {
     this.isActive = false;
-    return {sign, isActive}
+    return {name, sign, isActive}
 }
 
-let player1 = Players('x');
-let player2 = Players('o');
+let player1 = Players('player1', 'x');
+let player2 = Players('player2', 'o');
 
 
 const GameFlow = (() => {
     player1.isActive = true;
-    let activeSign = player1.sign;
+    let activeSign = player1.sign; // 
     let boardDivs = document.querySelectorAll('div.boardPiece');
     boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
@@ -41,26 +43,33 @@ const GameFlow = (() => {
             document.getElementById('player1Btn').classList.remove('activeButton');
             document.getElementById('player2Btn').classList.add('activeButton');
             player2.isActive = true;
-            getSign(player2);
+            changeSign(player2);
         } else {
             player2.isActive = false;
             document.getElementById('player2Btn').classList.remove('activeButton');
             document.getElementById('player1Btn').classList.add('activeButton');
             player1.isActive = true;
-            getSign(player1);
+            changeSign(player1);
         }
     }
-    const getSign = (player) => {
+    const changeSign = (player) => { //
         activeSign = player.sign
     }
+    const getPlayer = () => {
+        let activePlayer = player1.isActive != true ? player1 : player2;
+        return activePlayer.name;
+    }
+
     return {
         switchPlayers,
-        placeChar
+        placeChar,
+        getPlayer
     }
 })()
 
-const pickAWinner = ((scoreArray, i, sign) => {
-    const winnerIndexes = [
+const PickAWinner = (() => {
+    let h1 = document.getElementById('winner')
+    let winnerIndexes = [
         [0,1,2],
         [3,4,5],
         [6,7,8],
@@ -70,10 +79,10 @@ const pickAWinner = ((scoreArray, i, sign) => {
         [0,4,8],
         [2,4,6]
     ];
-    const seeIfPlayerWon = () => {
+    const seeIfPlayerWon = (scoreArray, i, sign) => {
         let indexesWCurrentSign = [];
-        winnerIndexes.filter(arr => {
-            if (arr.includes(i)) indexesWCurrentSign.push(arr)
+        winnerIndexes.map(arr => {
+            if (arr.includes(parseInt(i))) indexesWCurrentSign.push(arr)
         });
         for (let indexWCurrentSign of indexesWCurrentSign) {
             let copy = indexWCurrentSign;
@@ -83,7 +92,7 @@ const pickAWinner = ((scoreArray, i, sign) => {
                 copy.splice(i, 1) 
               }
             }
-            if (copy.length === 0) return 'done'
+            if (copy.length === 0) h1.textContent = `${GameFlow.getPlayer()} won`;          
         }
     }
     return {
