@@ -1,11 +1,10 @@
 const Board = (() => {
-    let boardArr = ["", "", "", "", "", "", "", "", ""];
+    let boardArr = [ "", "", "", "", "", "", "", "", ""];
     const assignToArr = (i, sign, el) => {
         if (boardArr[i] === "") {
             boardArr[i] = sign;
             GameFlow.placeChar(el);
         }
-        
     };
     return {
         assignToArr
@@ -22,17 +21,19 @@ let player2 = Players('o');
 
 
 const GameFlow = (() => {
-    let activeSign;
+    player1.isActive = true;
+    let activeSign = player1.sign;
     let boardDivs = document.querySelectorAll('div.boardPiece');
     boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
-            Board.assignToArr(e.target.getAttribute('data-index'), activeSign, e.target);
+            let dataIndex = e.target.getAttribute('data-index');
+            Board.assignToArr(dataIndex, activeSign, e.target);
         })
     })
 
     const placeChar = (el) => {
-        switchPlayers();
         el.textContent = activeSign;
+        switchPlayers();
     }
     const switchPlayers = () => {
         if (player1.isActive) {
@@ -58,3 +59,6 @@ const GameFlow = (() => {
     }
 })()
 
+const winningConstitions = () => ({
+
+})()
