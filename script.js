@@ -8,8 +8,7 @@ const Board = (() => {
         }
     };
     return {
-        assignToArr,
-        boardArr //
+        assignToArr
     }
 })()
 
@@ -59,7 +58,6 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
-
     return {
         switchPlayers,
         placeChar,
@@ -85,14 +83,14 @@ const PickAWinner = (() => {
             if (arr.includes(parseInt(i))) indexesWCurrentSign.push(arr)
         });
         for (let indexWCurrentSign of indexesWCurrentSign) {
-            let copy = indexWCurrentSign;
+            let copy = [...indexWCurrentSign];
             for (let i = indexWCurrentSign.length - 1; i >= 0; i--) {
               let index = indexWCurrentSign[i]
               if (scoreArray[index] === sign) {
-                copy.splice(i, 1) 
+                copy.splice(i, 1)
               }
             }
-            if (copy.length === 0) h1.textContent = `${GameFlow.getPlayer()} won`;          
+            if (copy.length === 0) h1.textContent = `${GameFlow.getPlayer()} won`;
         }
     }
     return {
@@ -100,3 +98,7 @@ const PickAWinner = (() => {
     }
      
 })()
+
+const End = (() => {
+
+})
