@@ -26,7 +26,8 @@ const Board = (() => {
 
 const Players = (name, sign) => {
     this.isActive = false;
-    return {name, sign, isActive}
+    this.score = 0;
+    return {name, sign, score, isActive}
 }
 
 let player1 = Players('player1', 'x');
@@ -35,7 +36,7 @@ let player2 = Players('player2', 'o');
 
 const GameFlow = (() => {
     player1.isActive = true;
-    let activeSign = player1.sign; // 
+    let activeSign = player1.sign;
     let boardDivs = document.querySelectorAll('div.boardPiece');
     boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
@@ -82,12 +83,17 @@ const GameFlow = (() => {
     const reset = () => {
         document.addEventListener('click', newGame())
     } 
+    const addScore = (winner) => {
+        winner.score++;
+        document.getElementById(`${winner.name}Score`).textContent = winner.score;
+    }
     return {
         switchPlayers,
         placeChar,
         getPlayer,
         changeColorsOfLosers,
-        reset
+        reset,
+        addScore
     }
 })()
 
@@ -118,7 +124,13 @@ const PickAWinner = (() => {
             }
             
             if (copy.length === 0) {
-
+                let winner;
+                if (GameFlow.getPlayer() === 'player1') {
+                    winner = player1
+                } else if (GameFlow.getPlayer() === 'player2'){
+                    winner = player2
+                }
+                GameFlow.addScore(winner)
                 h1.textContent = `${GameFlow.getPlayer()} won`;
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
                 GameFlow.changeColorsOfLosers(arrOfLosers);
