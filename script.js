@@ -2,7 +2,7 @@ const Board = (() => {
     let boardArr = [ "", "", "", "", "", "", "", "", ""];
     const getBoardArr = () => {
         return boardArr
-    }
+    };
     const assignToArr = (i, sign, el) => {
         if (boardArr[i] === "") {
             boardArr[i] = sign;
@@ -10,9 +10,17 @@ const Board = (() => {
             PickAWinner.seeIfPlayerWon(boardArr, i, boardArr[i])
         }
     };
+    const clearBoard = (elements) => {
+        boardArr = [ "", "", "", "", "", "", "", "", ""];
+        elements.forEach(el => {
+            el.textContent = "";
+            el.classList.remove('signsThatLost');
+        })
+    }
     return {
         getBoardArr,
-        assignToArr
+        assignToArr,
+        clearBoard
     }
 })()
 
@@ -67,12 +75,16 @@ const GameFlow = (() => {
             let el = document.getElementById(`square${x}`);
             el.classList.toggle('signsThatLost');
         }
+    }
+    const newGame = () => {
+        Board.clearBoard(boardDivs)
     } 
     return {
         switchPlayers,
         placeChar,
         getPlayer,
-        changeColorsOfLosers
+        changeColorsOfLosers,
+        newGame
     }
 })()
 
