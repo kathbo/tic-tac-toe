@@ -1,0 +1,21 @@
+div.gameboard {
+    background-color: rosybrown;
+    height: 40em;
+    width: 40em;
+}
+.col {
+    border: 1px red solid;
+    height: 40px;
+    width: 40px;
+    button {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.activeButton {
+    color: violet
+}
+.signsThatLost {
+    color: gray;
+}
