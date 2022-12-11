@@ -32,7 +32,7 @@ const Players = (name, sign) => {
 
 let player1 = Players('player1', 'x');
 let player2 = Players('player2', 'o');
-
+let tie = Players('tie', null);
 
 const GameFlow = (() => {
     player1.isActive = true;
@@ -124,20 +124,21 @@ const PickAWinner = (() => {
             }
             
             if (copy.length === 0) {
+                h1.textContent = `${GameFlow.getPlayer()} won`;
                 let winner;
                 if (GameFlow.getPlayer() === 'player1') {
                     winner = player1
                 } else if (GameFlow.getPlayer() === 'player2'){
                     winner = player2
                 }
-                GameFlow.addScore(winner)
-                h1.textContent = `${GameFlow.getPlayer()} won`;
+                GameFlow.addScore(winner);
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
                 GameFlow.changeColorsOfLosers(arrOfLosers);
-            } else if (!Board.getBoardArr().includes("")) {
-                //tie
             }
-        }
+        } 
+        // checks for a tie
+        if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); 
+
     }
 
     const indexesThatDidntWin = (winnerIndexes) => {
