@@ -9,36 +9,44 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="row pt-4">
+        <div class="col-5">
+            <p class="playerBtn activeButton" id="player1Btn">player 1</p>
+            <p class="score" id="player1Score">0</p>
+        </div>
+        <div class="col-2">
+            <p>tie</p>
+            <p class="score" id="tieScore">0</p>
+        </div>
+        <div class="col-5">
+            <p class="playerBtn" id="player2Btn">player 2</p>
+            <p class="score" id="player2Score">0</p>
+        </div> 
+    </div>
     <div class="gameboard container">
         <div class="row">
-            <div class="col boardPiece" data-index="0">
+            <div class="col boardPiece" id="square0" data-index="0">
             </div>
-            <div class="col boardPiece" data-index="1">
+            <div class="col boardPiece" id="square1" data-index="1">
             </div>
-            <div class="col boardPiece" data-index="2">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col boardPiece" data-index="3">
-            </div>
-            <div class="col boardPiece" data-index="4">
-            </div>
-            <div class="col boardPiece" data-index="5">
+            <div class="col boardPiece" id="square2" data-index="2">
             </div>
         </div>
         <div class="row">
-            <div class="col boardPiece" data-index="6">
+            <div class="col boardPiece" id="square3" data-index="3">
             </div>
-            <div class="col boardPiece" data-index="7">
+            <div class="col boardPiece" id="square4" data-index="4">
             </div>
-            <div class="col boardPiece" data-index="8">
+            <div class="col boardPiece" id="square5" data-index="5">
             </div>
         </div>
-
-
-        <div class="row pt-4">
-            <button class="col playerBtn activeButton" id="player1Btn">player 1</button>
-            <button class="col playerBtn" id="player2Btn">player 2</button>    
+        <div class="row">
+            <div class="col boardPiece" id="square6" data-index="6">
+            </div>
+            <div class="col boardPiece" id="square7" data-index="7">
+            </div>
+            <div class="col boardPiece" id="square8" data-index="8">
+            </div>
         </div>
         <h1 id="winner">insert the winner here</h1>
     </div>
