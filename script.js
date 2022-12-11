@@ -63,7 +63,7 @@ const GameFlow = (() => {
             changeSign(player1);
         }
     }
-    const changeSign = (player) => { //
+    const changeSign = (player) => {
         activeSign = player.sign
     }
     const getPlayer = () => {
@@ -78,13 +78,16 @@ const GameFlow = (() => {
     }
     const newGame = () => {
         Board.clearBoard(boardDivs)
+    }
+    const reset = () => {
+        document.addEventListener('click', newGame())
     } 
     return {
         switchPlayers,
         placeChar,
         getPlayer,
         changeColorsOfLosers,
-        newGame
+        reset
     }
 })()
 
@@ -115,9 +118,12 @@ const PickAWinner = (() => {
             }
             
             if (copy.length === 0) {
+
                 h1.textContent = `${GameFlow.getPlayer()} won`;
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
-                GameFlow.changeColorsOfLosers(arrOfLosers)
+                GameFlow.changeColorsOfLosers(arrOfLosers);
+            } else if (!Board.getBoardArr().includes("")) {
+                //tie
             }
         }
     }
