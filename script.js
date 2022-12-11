@@ -1,5 +1,8 @@
 const Board = (() => {
     let boardArr = [ "", "", "", "", "", "", "", "", ""];
+    const getBoardArr = () => {
+        return boardArr
+    }
     const assignToArr = (i, sign, el) => {
         if (boardArr[i] === "") {
             boardArr[i] = sign;
@@ -8,6 +11,7 @@ const Board = (() => {
         }
     };
     return {
+        getBoardArr,
         assignToArr
     }
 })()
@@ -58,10 +62,17 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
+    const changeColorsOfLosers = (arr) => {
+        for(let x of arr) {
+            let el = document.getElementById(`square${x}`);
+            el.classList.toggle('signsThatLost');
+        }
+    } 
     return {
         switchPlayers,
         placeChar,
-        getPlayer
+        getPlayer,
+        changeColorsOfLosers
     }
 })()
 
@@ -90,11 +101,28 @@ const PickAWinner = (() => {
                 copy.splice(i, 1)
               }
             }
-            if (copy.length === 0) h1.textContent = `${GameFlow.getPlayer()} won`;
+            
+            if (copy.length === 0) {
+                h1.textContent = `${GameFlow.getPlayer()} won`;
+                let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
+                GameFlow.changeColorsOfLosers(arrOfLosers)
+            }
         }
     }
+
+    const indexesThatDidntWin = (winnerIndexes) => {
+        let boardArr = Board.getBoardArr()
+        let rest = [];
+        for (let i = 0; i < 9; i++) {
+            if (boardArr[i] !== "") {
+                if (!winnerIndexes.includes(i)) rest.push(i);
+            }
+            
+        }
+        return rest
+    }
     return {
-        seeIfPlayerWon
+        seeIfPlayerWon,
     }
      
 })()
