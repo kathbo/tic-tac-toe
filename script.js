@@ -71,12 +71,6 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
-    const changeColorsOfLosers = (arr) => {
-        for(let x of arr) {
-            let el = document.getElementById(`square${x}`);
-            el.classList.toggle('signsThatLost');
-        }
-    }
     const newGame = () => {
         Board.clearBoard(boardDivs)
     }
@@ -91,7 +85,6 @@ const GameFlow = (() => {
         switchPlayers,
         placeChar,
         getPlayer,
-        changeColorsOfLosers,
         reset,
         addScore
     }
@@ -133,12 +126,12 @@ const PickAWinner = (() => {
                 }
                 GameFlow.addScore(winner);
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
-                GameFlow.changeColorsOfLosers(arrOfLosers);
+                addClass(arrOfLosers, 'signsThatLost');
+                addClass(indexWCurrentSign, 'flicker')
             }
         } 
         // checks for a tie
-        if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); 
-
+        if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); // include a flickering gray border 
     }
 
     const indexesThatDidntWin = (winnerIndexes) => {
@@ -151,6 +144,12 @@ const PickAWinner = (() => {
             
         }
         return rest
+    }
+    function addClass(arr, className) {
+        for(let x of arr) {
+            let el = document.getElementById(`square${x}`);
+            el.classList.toggle(className);
+        }   
     }
     return {
         seeIfPlayerWon,
