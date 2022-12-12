@@ -19,3 +19,11 @@ div.gameboard {
 .signsThatLost {
     color: gray;
 }
+.flicker {
+    animation: blinker 0.2s linear 3;
+}
+@keyframes blinker {
+    0% { opacity:1; }
+    50% {opacity: 0;}
+    100% { opacity:1; }
+  }
