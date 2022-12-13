@@ -1,8 +1,6 @@
 const Board = (() => {
     let boardArr = [ "", "", "", "", "", "", "", "", ""];
-    const getBoardArr = () => {
-        return boardArr
-    };
+    const getBoardArr = () => boardArr;
     const assignToArr = (i, sign, el) => {
         if (boardArr[i] === "") {
             boardArr[i] = sign;
@@ -86,7 +84,7 @@ const GameFlow = (() => {
             addOrRemoveClass('r', loserArr, 'signsThatLost');
             addOrRemoveClass('r', winnerArr, 'flicker');
         
-    })
+        })
     } 
     const addScore = (winner) => {
         winner.score++;
@@ -103,7 +101,6 @@ const GameFlow = (() => {
 })()
 
 const PickAWinner = (() => {
-    let h1 = document.getElementById('winner')
     let winnerIndexes = [
         [0,1,2],
         [3,4,5],
@@ -127,9 +124,7 @@ const PickAWinner = (() => {
                 copy.splice(i, 1)
               }
             }
-            
             if (copy.length === 0) {
-                h1.textContent = `${GameFlow.getPlayer()} won`;
                 let winner;
                 if (GameFlow.getPlayer() === 'player1') {
                     winner = player1
@@ -161,7 +156,3 @@ const PickAWinner = (() => {
     }
      
 })()
-
-const End = (() => {
-
-})
