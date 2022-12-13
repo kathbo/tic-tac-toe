@@ -35,7 +35,6 @@ let player2 = Players('player2', 'o');
 let tie = Players('tie', null);
 
 const GameFlow = (() => {
-    
     player1.isActive = true;
     let activeSign = player1.sign;
     let boardDivs = document.querySelectorAll('div.boardPiece');
@@ -45,10 +44,6 @@ const GameFlow = (() => {
             Board.assignToArr(dataIndex, activeSign, e.target);
         })
     })
-    let didRoundEnd = false;
-    const changeDidRoundEnd = () => {
-        didRoundEnd = true
-    }
     const placeChar = (el) => {
         el.textContent = activeSign;
         switchPlayers();
@@ -78,11 +73,11 @@ const GameFlow = (() => {
     const newGame = () => {
         Board.clearBoard(boardDivs)
     }
-    const reset = () => {
+    const reset = (loserArr, winnerArr) => {
         document.addEventListener('dblclick', () => {
-            if (didRoundEnd == true) newGame();
-            console.log(didRoundEnd)
-        })
+            newGame();
+        
+    })
     } 
     const addScore = (winner) => {
         winner.score++;
@@ -91,7 +86,6 @@ const GameFlow = (() => {
     return {
         switchPlayers,
         placeChar,
-        changeDidRoundEnd,
         getPlayer,
         reset,
         addScore
@@ -134,10 +128,9 @@ const PickAWinner = (() => {
                 }
                 GameFlow.addScore(winner);
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
-                addClass(arrOfLosers, 'signsThatLost');
-                addClass(indexWCurrentSign, 'flicker');
-                GameFlow.changeDidRoundEnd();
-                GameFlow.reset();
+                addOrRemoveClass('a', arrOfLosers, 'signsThatLost');
+                addOrRemoveClass('a', indexWCurrentSign, 'flicker');
+                GameFlow.reset(arrOfLosers, indexWCurrentSign);
                 
             }
         } 
@@ -156,10 +149,11 @@ const PickAWinner = (() => {
         return rest
     }
 
-    function addClass(arr, className) {
+    function addOrRemoveClass(whatToDo, arr, className) {
         for(let x of arr) {
             let el = document.getElementById(`square${x}`);
-            el.classList.toggle(className);
+            if (whatToDo === 'a') el.classList.add(className);
+            if (whatToDo === 'r') el.classList.remove(className);
         }   
     }
     return {
