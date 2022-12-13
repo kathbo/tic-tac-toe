@@ -9,20 +9,6 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="row">
-        <div class="col-5">
-            <p class="playerBtn activeButton" id="player1Btn">player 1</p>
-            <p class="score" id="player1Score">0</p>
-        </div>
-        <div class="col-2">
-            <p>tie</p>
-            <p class="score" id="tieScore">0</p>
-        </div>
-        <div class="col-5">
-            <p class="playerBtn" id="player2Btn">player 2</p>
-            <p class="score" id="player2Score">0</p>
-        </div> 
-    </div>
     <div class="gameboard">
         <div class="boardPiece" id="square0" data-index="0"></div>
         <div class="boardPiece boardBorderVertical" id="square1" data-index="1"></div>
@@ -34,6 +20,23 @@
         <div class="boardPiece boardBorderVertical" id="square7" data-index="7"></div>
         <div class="boardPiece" id="square8" data-index="8"></div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-5">
+                <p class="playerBtn activeButton" id="player1Btn">player 1</p>
+                <p class="score" id="player1Score">0</p>
+            </div>
+            <div class="col-2">
+                <p>tie</p>
+                <p class="score" id="tieScore">0</p>
+            </div>
+            <div class="col-5">
+                <p class="playerBtn" id="player2Btn">player 2</p>
+                <p class="score" id="player2Score">0</p>
+            </div> 
+        </div>   
+    </div>
+    
     <script src="script.js" defer></script>
 </body>
 </html>
