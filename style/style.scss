@@ -1,10 +1,40 @@
+html {
+    
+    color: white;
+}
+body {
+    background-image: url("../img/background.svg");
+    background-size: cover;
+    color: white;
+}
 div.gameboard {
-    background-color: rosybrown;
-    height: 40em;
-    width: 40em;
+    height: 300px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    .boardPiece {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4em;
+        position: relative;
+        * {
+            position: absolute;
+        } 
+    }
+}
+
+.boardBorderVertical {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+.boardBorderHorizontal {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 }
 .col {
-    border: 1px red solid;
+    // border: 1px red solid;
     height: 40px;
     width: 40px;
     button {
