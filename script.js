@@ -8,6 +8,7 @@ const Board = (() => {
             PickAWinner.seeIfPlayerWon(boardArr, i, boardArr[i])
         }
     };
+    const getDOMBoard = document.querySelector('div.gameboard');
     const clearBoard = (elements) => {
         boardArr = [ "", "", "", "", "", "", "", "", ""];
         elements.forEach(el => {
@@ -18,6 +19,7 @@ const Board = (() => {
     return {
         getBoardArr,
         assignToArr,
+        getDOMBoard,
         clearBoard
     }
 })()
@@ -79,11 +81,12 @@ const GameFlow = (() => {
     const reset = (loserArr, winnerArr) => {
         addOrRemoveClass('a', loserArr, 'signsThatLost');
         addOrRemoveClass('a', winnerArr, 'flicker');
+        Board.getDOMBoard.classList.add('notClickable');
         document.addEventListener('dblclick', () => {
             newGame();
             addOrRemoveClass('r', loserArr, 'signsThatLost');
             addOrRemoveClass('r', winnerArr, 'flicker');
-        
+            Board.getDOMBoard.classList.remove('notClickable');
         })
     } 
     const addScore = (winner) => {
