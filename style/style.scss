@@ -1,11 +1,10 @@
-html {
-    
-    color: white;
-}
 body {
+    width: 100vw;
+    height: 100vh;
     background-image: url("../img/background.svg");
     background-size: cover;
     color: white;
+    font-family: 'Raleway', sans-serif;
 }
 div.gameboard {
     height: 300px;
@@ -17,7 +16,7 @@ div.gameboard {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 4em;
+        font-size: 5em;
         position: relative;
         * {
             position: absolute;
@@ -26,23 +25,19 @@ div.gameboard {
 }
 
 .boardBorderVertical {
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
 }
 .boardBorderHorizontal {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-}
-.col {
-    // border: 1px red solid;
-    height: 40px;
-    width: 40px;
-    button {
-        height: 100%;
-        width: 100%;
-    }
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
 }
 
+.row {
+    div {
+
+    }
+}
 .activeButton {
     color: violet
 }
