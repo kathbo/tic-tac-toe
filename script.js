@@ -70,12 +70,23 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
+    const addOrRemoveClass = (whatToDo, arr, className) => {
+        for (let x of arr) {
+            let el = document.getElementById(`square${x}`);
+            if (whatToDo === 'a') el.classList.add(className);
+            if (whatToDo === 'r') el.classList.remove(className);
+        }   
+    }
     const newGame = () => {
         Board.clearBoard(boardDivs)
     }
     const reset = (loserArr, winnerArr) => {
+        addOrRemoveClass('a', loserArr, 'signsThatLost');
+        addOrRemoveClass('a', winnerArr, 'flicker');
         document.addEventListener('dblclick', () => {
             newGame();
+            addOrRemoveClass('r', loserArr, 'signsThatLost');
+            addOrRemoveClass('r', winnerArr, 'flicker');
         
     })
     } 
@@ -87,6 +98,7 @@ const GameFlow = (() => {
         switchPlayers,
         placeChar,
         getPlayer,
+        addOrRemoveClass,
         reset,
         addScore
     }
@@ -128,8 +140,6 @@ const PickAWinner = (() => {
                 }
                 GameFlow.addScore(winner);
                 let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
-                addOrRemoveClass('a', arrOfLosers, 'signsThatLost');
-                addOrRemoveClass('a', indexWCurrentSign, 'flicker');
                 GameFlow.reset(arrOfLosers, indexWCurrentSign);
                 
             }
@@ -147,14 +157,6 @@ const PickAWinner = (() => {
             }
         }
         return rest
-    }
-
-    function addOrRemoveClass(whatToDo, arr, className) {
-        for(let x of arr) {
-            let el = document.getElementById(`square${x}`);
-            if (whatToDo === 'a') el.classList.add(className);
-            if (whatToDo === 'r') el.classList.remove(className);
-        }   
     }
     return {
         seeIfPlayerWon,
