@@ -63,9 +63,8 @@ const GameFlow = (() => {
             changeSign(player1);
         }
     }
-    const changeSign = (player) => {
-        activeSign = player.sign
-    }
+    const changeSign = (player) => activeSign = player.sign;
+  
     const getPlayer = () => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
@@ -77,9 +76,8 @@ const GameFlow = (() => {
             if (whatToDo === 'r') el.classList.remove(className);
         }   
     }
-    const newGame = () => {
-        Board.clearBoard(boardDivs)
-    }
+    const newGame = () => Board.clearBoard(boardDivs);
+
     const reset = (loserArr, winnerArr) => {
         addOrRemoveClass('a', loserArr, 'signsThatLost');
         addOrRemoveClass('a', winnerArr, 'flicker');
