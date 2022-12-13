@@ -44,8 +44,10 @@ const GameFlow = (() => {
             Board.assignToArr(dataIndex, activeSign, e.target);
         })
     })
-    const placeChar = (el) => {
-        el.textContent = activeSign;
+    const placeChar = (div) => {
+        let para = document.createElement('p')
+        para.textContent = activeSign;
+        div.appendChild(para)
         switchPlayers();
     }
     const switchPlayers = () => {
