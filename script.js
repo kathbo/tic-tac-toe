@@ -92,12 +92,22 @@ const GameFlow = (() => {
             newGame();
             Board.getDOMBoard.classList.remove('notClickable');
             Board.getDOMBoard.classList.remove('flicker');
+            document.getElementById('dblClickInfo').classList.remove('show');
         })
     } 
     const addScore = (winner) => {
+        let wasDesplayed = false;
+        if (getScore(player1) > 0 || getScore(player2) > 0 || getScore(tie) > 0) {
+            wasDesplayed = true;
+        }
+        if (!wasDesplayed) document.getElementById('dblClickInfo').classList.add('show');
         winner.score++;
         document.getElementById(`${winner.name}Score`).textContent = winner.score;
     }
+    const getScore = (player) => {
+        return player.score
+    }
+
     return {
         switchPlayers,
         placeChar,
@@ -140,7 +150,7 @@ const PickAWinner = (() => {
             if (!Board.getBoardArr().includes("")) {
                 GameFlow.addScore(tie);
                 GameFlow.reset('tie', [], []);
-            } // include a flickering gray border 
+            }
         }
     }
     const compareArrays = (scoreArray, arrToCompare, sign) => {
