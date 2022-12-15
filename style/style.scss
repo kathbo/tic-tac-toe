@@ -1,3 +1,4 @@
+$widthS: 300px;
 body {
     width: 100vw;
     height: 100vh;
@@ -7,8 +8,8 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 div.gameboard {
-    height: 300px;
-    width: 300px;
+    height: $widthS;
+    width: $widthS;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -17,27 +18,40 @@ div.gameboard {
         justify-content: center;
         align-items: center;
         font-size: 5em;
+        font-weight: 800;
+        cursor: pointer;
         position: relative;
-        * {
-            position: absolute;
-        } 
+        * { position: absolute; } 
     }
 }
 
 .boardBorderVertical {
-    border-left: 2px solid white;
-    border-right: 2px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid white;
 }
 .boardBorderHorizontal {
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
 }
 
-.row {
-    div {
-
+.scores {
+    width: $widthS;
+    .row {
+        div {
+            text-align: center;
+            font-weight: 500;
+            p.playerBtn {
+                margin-bottom: 0 !important;
+            }
+            p.score {
+                font-weight: 600;
+                font-size: 2em;
+            }
+        }
     }
+    p#dblClickInfo {visibility: hidden;}
 }
+
 .activeButton {
     color: violet
 }
@@ -50,8 +64,11 @@ div.gameboard {
 @keyframes blinker {
     0% { opacity:1; }
     50% {opacity: 0;}
-    100% { opacity:1; }
+    100% { opacity:1;}
 }
 .notClickable {
     pointer-events: none;
+}
+.show {
+    visibility: visible !important;
 }
