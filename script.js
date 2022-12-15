@@ -71,7 +71,7 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
-    const addOrRemoveClass = (arr, className) => {
+    const addAClass = (arr, className) => {
         for (let x of arr) {
             let el = document.getElementById(`square${x}`).firstElementChild;
             el.classList.add(className);
@@ -79,13 +79,19 @@ const GameFlow = (() => {
     }
     const newGame = () => Board.clearBoard(boardDivs);
 
-    const reset = (loserArr, winnerArr) => {
-        addOrRemoveClass(loserArr, 'signsThatLost');
-        addOrRemoveClass( winnerArr, 'flicker');
-        Board.getDOMBoard.classList.add('notClickable');
+    const reset = (msg, loserArr, winnerArr) => {
+        if (msg === 'winner determined') {
+            addAClass(loserArr, 'signsThatLost');
+            addAClass(winnerArr, 'flicker');
+            Board.getDOMBoard.classList.add('notClickable');
+        } else if (msg === 'tie') {
+            Board.getDOMBoard.classList.add('flicker');
+        }
+        
         document.addEventListener('dblclick', () => {
             newGame();
             Board.getDOMBoard.classList.remove('notClickable');
+            Board.getDOMBoard.classList.remove('flicker');
         })
     } 
     const addScore = (winner) => {
@@ -128,10 +134,13 @@ const PickAWinner = (() => {
             }
             GameFlow.addScore(winner);
             let arrOfLosers = indexesThatDidntWin(winnerArrs[0]);
-            GameFlow.reset(arrOfLosers, winnerArrs[0]);
+            GameFlow.reset('winner determined', arrOfLosers, winnerArrs[0]);
         } else {
             // checks for a tie
-            if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); // include a flickering gray border 
+            if (!Board.getBoardArr().includes("")) {
+                GameFlow.addScore(tie);
+                GameFlow.reset('tie', [], []);
+            } // include a flickering gray border 
         }
     }
     const compareArrays = (scoreArray, arrToCompare, sign) => {
