@@ -1,4 +1,9 @@
-$widthS: 300px;
+$widthXS: 300px;
+$widthS: 350px;
+$widthM: 300px;
+$widthL: 300px;
+$widthXL: 300px;
+
 body {
     width: 100vw;
     height: 100vh;
@@ -8,8 +13,8 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 div.gameboard {
-    height: $widthS;
-    width: $widthS;
+    height: $widthXS;
+    width: $widthXS;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -35,7 +40,7 @@ div.gameboard {
 }
 
 .scores {
-    width: $widthS;
+    width: $widthXS;
     .row {
         div {
             text-align: center;
@@ -50,6 +55,16 @@ div.gameboard {
         }
     }
     p#dblClickInfo {visibility: hidden;}
+}
+
+@media (min-width: 500px) {
+    div.gameboard {
+        height: $widthS;
+        width: $widthS;
+    }
+    .scores {
+        width: $widthS;
+    }
 }
 
 // JS CLASSES 
