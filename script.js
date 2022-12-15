@@ -53,14 +53,10 @@ const GameFlow = (() => {
     const switchPlayers = () => {
         if (player1.isActive) {
             player1.isActive = false;
-            document.getElementById('player1Btn').classList.remove('activeButton');
-            document.getElementById('player2Btn').classList.add('activeButton');
             player2.isActive = true;
             changeSign(player2);
         } else {
             player2.isActive = false;
-            document.getElementById('player2Btn').classList.remove('activeButton');
-            document.getElementById('player1Btn').classList.add('activeButton');
             player1.isActive = true;
             changeSign(player1);
         }
