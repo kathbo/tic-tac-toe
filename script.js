@@ -71,23 +71,20 @@ const GameFlow = (() => {
         let activePlayer = player1.isActive != true ? player1 : player2;
         return activePlayer.name;
     }
-    const addOrRemoveClass = (whatToDo, arr, className) => {
+    const addOrRemoveClass = (arr, className) => {
         for (let x of arr) {
             let el = document.getElementById(`square${x}`).firstElementChild;
-            if (whatToDo === 'a') el.classList.add(className);
-            if (whatToDo === 'r') el.classList.remove(className);
+            el.classList.add(className);
         }   
     }
     const newGame = () => Board.clearBoard(boardDivs);
 
     const reset = (loserArr, winnerArr) => {
-        addOrRemoveClass('a', loserArr, 'signsThatLost');
-        addOrRemoveClass('a', winnerArr, 'flicker');
+        addOrRemoveClass(loserArr, 'signsThatLost');
+        addOrRemoveClass( winnerArr, 'flicker');
         Board.getDOMBoard.classList.add('notClickable');
         document.addEventListener('dblclick', () => {
             newGame();
-            addOrRemoveClass('r', loserArr, 'signsThatLost');
-            addOrRemoveClass('r', winnerArr, 'flicker');
             Board.getDOMBoard.classList.remove('notClickable');
         })
     } 
@@ -99,7 +96,6 @@ const GameFlow = (() => {
         switchPlayers,
         placeChar,
         getPlayer,
-        addOrRemoveClass,
         reset,
         addScore
     }
@@ -121,7 +117,26 @@ const PickAWinner = (() => {
         winnerIndexes.map(arr => {
             if (arr.includes(parseInt(i))) indexesWCurrentSign.push(arr)
         });
-        for (let indexWCurrentSign of indexesWCurrentSign) {
+        let winnerArrs = compareArrays(scoreArray, indexesWCurrentSign, sign);
+
+        if (winnerArrs.length > 0) {
+            let winner;
+            if (GameFlow.getPlayer() === 'player1') {
+                winner = player1
+            } else {
+                winner = player2
+            }
+            GameFlow.addScore(winner);
+            let arrOfLosers = indexesThatDidntWin(winnerArrs[0]);
+            GameFlow.reset(arrOfLosers, winnerArrs[0]);
+        } else {
+            // checks for a tie
+            if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); // include a flickering gray border 
+        }
+    }
+    const compareArrays = (scoreArray, arrToCompare, sign) => {
+        let result = [];
+        for (let indexWCurrentSign of arrToCompare) {
             let copy = [...indexWCurrentSign];
             for (let i = indexWCurrentSign.length - 1; i >= 0; i--) {
               let index = indexWCurrentSign[i]
@@ -129,21 +144,9 @@ const PickAWinner = (() => {
                 copy.splice(i, 1)
               }
             }
-            if (copy.length === 0) {
-                let winner;
-                if (GameFlow.getPlayer() === 'player1') {
-                    winner = player1
-                } else if (GameFlow.getPlayer() === 'player2'){
-                    winner = player2
-                }
-                GameFlow.addScore(winner);
-                let arrOfLosers = indexesThatDidntWin(indexWCurrentSign);
-                GameFlow.reset(arrOfLosers, indexWCurrentSign);
-                
-            }
-        } 
-        // checks for a tie
-        if (!Board.getBoardArr().includes("")) GameFlow.addScore(tie); // include a flickering gray border 
+            if (copy.length === 0) result.push(indexWCurrentSign)
+        }
+        return result;
     }
 
     const indexesThatDidntWin = (winnerIndexes) => {
