@@ -73,7 +73,7 @@ const GameFlow = (() => {
     }
     const addOrRemoveClass = (whatToDo, arr, className) => {
         for (let x of arr) {
-            let el = document.getElementById(`square${x}`);
+            let el = document.getElementById(`square${x}`).firstElementChild;
             if (whatToDo === 'a') el.classList.add(className);
             if (whatToDo === 'r') el.classList.remove(className);
         }   
