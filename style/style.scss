@@ -1,6 +1,6 @@
 $widthXS: 300px;
 $widthS: 350px;
-$widthM: 300px;
+$widthM: 400px;
 $widthL: 300px;
 $widthXL: 300px;
 
@@ -61,9 +61,30 @@ div.gameboard {
     div.gameboard {
         height: $widthS;
         width: $widthS;
+        .boardPiece { font-size: 8em; }
     }
     .scores {
         width: $widthS;
+    }
+}
+@media (min-width: 800px) {
+    div.gameboard {
+        height: $widthM;
+        width: $widthM;
+        .boardPiece { 
+            font-size: 10em; 
+            font-weight: 700;
+        }
+    }
+    .scores {
+        margin-top: 1em;
+        width: $widthM;
+    }
+    p.playerBtn {
+        font-size: 1.1em;
+    }
+    p.score {
+        font-size: 2.7em !important;
     }
 }
 
