@@ -18,6 +18,7 @@ div.gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    flex-shrink: 0;
     .boardPiece {
         display: flex;
         justify-content: center;
