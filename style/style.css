@@ -1,0 +1,164 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../img/background.svg");
+  background-size: cover;
+  color: white;
+  font-family: "Raleway", sans-serif;
+}
+
+div.gameboard {
+  height: 300px;
+  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  flex-shrink: 0;
+}
+div.gameboard .boardPiece {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+  font-weight: 800;
+  cursor: pointer;
+}
+div.gameboard .boardPiece div {
+  width: 100%;
+  height: 100%;
+  filter: invert(95%) sepia(11%) saturate(1%) hue-rotate(344deg) brightness(116%) contrast(100%);
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.boardBorderVertical {
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+}
+
+.boardBorderHorizontal {
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+}
+
+div.scores {
+  margin-top: 1em;
+  width: 300px;
+}
+div.scores .row div {
+  text-align: center;
+  font-weight: 500;
+}
+div.scores .row div p.playerBtn {
+  margin-bottom: 0 !important;
+}
+div.scores .row div p.score {
+  font-weight: 600;
+  font-size: 2em;
+}
+div.scores p#dblClickInfo {
+  visibility: hidden;
+}
+
+@media (min-width: 500px) {
+  div.gameboard {
+    height: 350px;
+    width: 350px;
+  }
+  div.gameboard .boardPiece {
+    font-size: 8em;
+  }
+  div.scores {
+    width: 350px;
+  }
+}
+@media (min-width: 800px) {
+  div.gameboard {
+    height: 400px;
+    width: 400px;
+  }
+  div.gameboard .boardPiece {
+    font-size: 10em;
+    font-weight: 600;
+  }
+  div.scores {
+    width: 400px;
+  }
+  p.playerBtn {
+    font-size: 1.1em;
+  }
+  p.score {
+    font-size: 2.7em !important;
+  }
+}
+@media (min-width: 1000px) {
+  div.gameboard {
+    height: 450px;
+    width: 450px;
+  }
+  div.gameboard .boardPiece {
+    font-size: 11em;
+  }
+  .boardBorderVertical, .boardBorderHorizontal {
+    border-width: 4px;
+  }
+  div.scores {
+    margin-top: 2.5em;
+    width: 450px;
+  }
+  p.playerBtn {
+    font-size: 1.2em;
+  }
+  p.score {
+    font-size: 3em !important;
+  }
+}
+.signsThatLost {
+  filter: invert(58%) sepia(0%) saturate(1310%) hue-rotate(214deg) brightness(87%) contrast(85%) !important;
+}
+
+.flicker {
+  -webkit-animation: blinker 0.2s linear 3;
+          animation: blinker 0.2s linear 3;
+}
+
+@-webkit-keyframes blinker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.notClickable {
+  pointer-events: none;
+}
+
+.show {
+  visibility: visible !important;
+}
+
+.jsX {
+  background-image: url("../img/x.svg");
+}
+
+.jsO {
+  background-image: url("../img/o.svg");
+  background-size: 70% !important;
+}/*# sourceMappingURL=style.css.map */
