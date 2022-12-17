@@ -12,8 +12,8 @@ const Board = (() => {
     const clearBoard = (elements) => {
         boardArr = [ "", "", "", "", "", "", "", "", ""];
         elements.forEach(el => {
-            el.textContent = "";
-            el.classList.remove('signsThatLost');
+            el.removeChild(el.firstElementChild);
+            el.appendChild(document.createElement('div'));
         })
     }
     return {
@@ -40,14 +40,19 @@ const GameFlow = (() => {
     let boardDivs = document.querySelectorAll('div.boardPiece');
     boardDivs.forEach(div => {
         div.addEventListener('click', (e) => {
-            let dataIndex = e.target.getAttribute('data-index');
+            let dataIndex = e.target.parentElement.getAttribute('data-index');
             Board.assignToArr(dataIndex, activeSign, e.target);
         })
     })
-    const placeChar = (div) => {
-        let para = document.createElement('p')
-        para.textContent = activeSign;
-        div.appendChild(para)
+    const placeChar = (el) => {
+        let className;
+        if (activeSign === 'x') {
+            className = 'jsX'
+        } else if (activeSign === 'o') {
+            className = 'jsO'
+        }
+        el.classList.add(className);
+
         switchPlayers();
     }
     const switchPlayers = () => {
