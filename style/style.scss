@@ -125,8 +125,8 @@ div.scores {
 }
 // JS CLASSES 
 
-.signsThatLost {
-    color: gray;
+.signsThatLost { 
+    filter: invert(58%) sepia(0%) saturate(1310%) hue-rotate(214deg) brightness(87%) contrast(85%) !important;
 }
 .flicker {
     animation: blinker 0.2s linear 3;
